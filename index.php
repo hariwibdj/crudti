@@ -14,8 +14,8 @@
 
 
     <div class="d-flex justify-content-between mb-3">
-        <h1>Daftar Mahasiswa</h1>
-        <a href="tambah.php" class="btn btn-primary bt-sm">Tambah Mahasiswa</a>
+        <h3>Daftar Mahasiswa</h3>
+        <a href="tambah.php" class="btn btn-primary">Tambah Mahasiswa</a>
     </div>
 
     <table class="table table table-striped table-hover">
@@ -41,7 +41,8 @@
                     <td><?= $row['npm']; ?></td>
                     <td><?= $row['nama']; ?></td>
                     <td><?= $row['kota']; ?></td>
-                    <td><a class="btn btn-info" href="http://">Edite</a> <a class="btn btn-danger" href="http://">Delete</a>
+                    <td><a class="btn btn-info" href="editmhs.php?id=<?= $row['id']; ?>">Edite</a> <a class="btn btn-danger"
+                            href="deletemhs.php?id=<?= $row['id']; ?>">Delete</a>
                     </td>
                 </tr>
                 <?php

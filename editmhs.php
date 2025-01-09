@@ -1,11 +1,18 @@
 <?php
 include "koneksi.php";
-if (isset($_POST['submit'])) {
-    $npm = $_POST['npm'];
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM mahasiswa WHERE id = $id";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+}
+
+if(isset($_POST['submit'])){
+    $npm  = $_POST['npm'];
     $nama = $_POST['nama'];
     $kota = $_POST['kota'];
 
-    $sql = "INSERT INTO mahasiswa (npm, nama, kota) VALUES ('$npm', '$nama', '$kota')";
+    $sql = "UPDATE mahasiswa SET npm = '$npm', nama = '$nama', kota = '$kota' WHERE id = $id";
     if (mysqli_query($conn, $sql)) {
         header('location: index.php');
     } else {
@@ -37,7 +44,8 @@ if (isset($_POST['submit'])) {
                 <label for="text" class="col-4 col-form-label">NPM</label>
                 <div class="col-8">
                     <div class="input-group">
-                        <input id="text" name="npm" placeholder="input npm" type="text" class="form-control">
+                        <input id="text" name="npm" value="<?= $row['npm']; ?>" placeholder="input npm" type="text"
+                            class="form-control">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <i class="fa fa-address-book"></i>
@@ -50,7 +58,8 @@ if (isset($_POST['submit'])) {
                 <label for="text1" class="col-4 col-form-label">Nama</label>
                 <div class="col-8">
                     <div class="input-group">
-                        <input id="text1" name="nama" placeholder="Input Nama" type="text" class="form-control">
+                        <input id="text1" name="nama" value="<?= $row['nama']; ?>" placeholder="Input Nama" type="text"
+                            class="form-control">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <i class="fa fa-address-book-o"></i>
@@ -63,10 +72,18 @@ if (isset($_POST['submit'])) {
                 <label for="select" class="col-4 col-form-label">Kota</label>
                 <div class="col-8">
                     <select id="select" name="kota" class="custom-select">
-                        <option value="Bandar Lampung">Bandar Lampung</option>
-                        <option value="Metro">Metro</option>
-                        <option value="Kalianda">Kalianda</option>
-                        <option value="Pesawaran">Pesawaran</option>
+                        <option value="Bandar Lampung"
+                            <?php echo ($row['kota'] == 'Bandar Lampung') ? 'selected' : '' ?>>
+                            Bandar Lampung</option>
+                        <option value="Metro" <?php echo ($row['kota'] == 'Metro') ? 'selected' : '' ?>>Metro</option>
+                        <option value="Kalianda" <?php echo ($row['kota'] == 'Kalianda') ? 'selected' : '' ?>>Kalianda
+                        </option>
+                        <option value="Lampung Tengah"
+                            <?php echo ($row['kota'] == 'Lampung Tengah') ? 'selected' : '' ?>>
+                            Lampung Tengah
+                        </option>
+                        <option value="Pesawaran" <?php echo ($row['kota'] == 'Pesawaran') ? 'selected' : '' ?>>
+                            Pesawaran</option>
                     </select>
                 </div>
             </div>
